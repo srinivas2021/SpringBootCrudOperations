@@ -2,8 +2,14 @@ package com.hcl.test.model;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="employee")
 public class Employee {
 
+	@Id
+	@NotEmpty(message = "employee Id must not be empty")
 	private String empId;
 	
 	@NotEmpty(message = "employee name must not be empty")

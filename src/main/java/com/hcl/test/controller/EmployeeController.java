@@ -1,6 +1,8 @@
 package com.hcl.test.controller;
 
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +32,16 @@ public class EmployeeController {
 	
     @GetMapping(value = "/employee/getEmployee/{id}")
 	public ResponseEntity<Object> getEmployeeById(@PathVariable String id) throws CustomException{
-		
-    	validationUtil.validateEmployeeId(new Long(id));
     	Employee response = null;
-		response = employeeService.getEmployeeByEmployeeId(id);
+    	
+    	validationUtil.validateEmployeeId(new Long(id));
+    	response = employeeService.getEmployeeByEmployeeId(id);
 		logger.info("Fetched  employee is {}", id);
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
     
     @PostMapping("/employee/create")
-    public ResponseEntity<Object> createEmployee(@RequestBody Employee employee){
+    public ResponseEntity<Object> createEmployee(@Valid @RequestBody Employee employee){
     	employeeService.createEmployee(employee);
     	logger.info("New employee created");
 		return new ResponseEntity<Object>(employee, HttpStatus.OK);
