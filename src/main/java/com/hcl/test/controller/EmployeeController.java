@@ -30,7 +30,7 @@ public class EmployeeController {
 	@Autowired
 	EmployeeRequestValidationUtil validationUtil;
 	
-    @GetMapping(value = "/employee/getEmployee/{id}")
+    @GetMapping(value = "/employee/{id}")
 	public ResponseEntity<Object> getEmployeeById(@PathVariable String id) throws CustomException{
     	Employee response = null;
     	
@@ -40,7 +40,7 @@ public class EmployeeController {
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
     
-    @PostMapping("/employee/create")
+    @PostMapping("/employee")
     public ResponseEntity<Object> createEmployee(@Valid @RequestBody Employee employee){
     	employeeService.createEmployee(employee);
     	logger.info("New employee created");
